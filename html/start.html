@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+	<title>start</title>
+	<script type="text/javascript" src="../js/vue.js"></script>
+	<script type="text/javascript">
+		window.onload=function(){
+			// 此处new Vue大写！
+			var app = new Vue({
+				// 选择器
+				el:'#box',
+				data:{
+					msg:'Hello Vue.js!',
+					arr:['1','2','3','4'],
+					json:{
+						a:'apple',
+						b:'orange',
+						c:'banana',
+					},
+					vs:true,
+				},
+				// 添加方法
+				methods:{
+					// 定义方法
+					addArr:function(){
+						// alert(this.arr);
+						this.arr.push(7);
+					},
+					hide:function(){
+						var vs = this.vs;
+						if(vs==true){
+							this.vs=false;
+						}else{
+							this.vs=true;
+						}
+					},
+				},
+			});
+		}
+	</script>
+</head>
+<body>
+<div id="box">
+	{{msg}}
+	<br>
+	<!-- 双向绑定 -->
+<!-- v-model -->
+	<input type="text" name="" v-model="msg">
+	<br>
+	{{arr}}
+	<br>
+	{{json}}
+	<ul>
+<!-- vue循环指令 v-for-->
+		<li v-for="value in arr">
+			{{value}} 
+		</li>
+	</ul>
+	<hr>
+	<ul>
+		<li  v-for="value in json">
+			{{value}}
+			<!-- {{$index}}	{{$key}}	 -->
+		</li>
+	</ul>
+	<hr>
+	<ul>
+	<!-- 键值对 -->
+		<li v-for="(k,v) in json">
+			{{v}}	{{k}}	
+		</li>
+	</ul>
+	<hr>
+<!-- 	<input type="button" name="" value="btn" onclick="alert('2333')"> -->
+
+<!-- v-on添加事件 -->
+	<input type="button" name="" value="双击添加数组" v-on:dblclick="addArr()">
+	<hr>
+<!-- v-show -->
+	<input type="button" name="" value="点击隐藏/显示" v-on:click="hide()">
+	<div style="width: 100px;height: 100px;background: green;" v-show="vs">
+	</div>
+	<hr>
+</div>
+</body>
+</html>
