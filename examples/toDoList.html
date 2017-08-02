@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>To do list</title>
+    <script src="../js/vue.js"></script>
+    <script type="text/javascript">
+        window.onload = function () {
+            var app = new Vue({
+                el: '#list',
+                data: {
+                    todos: [
+//             之前无需创建
+//            {vthings:''},
+//            {vnote:''}
+                    ],
+                    things: '',
+                    note: ''
+                },
+                methods: {
+                    add: function () {
+                        this.todos.push({
+                            vthings: this.things,
+                            vnote: this.note
+                        })
+                    }
+                }
+            })
+        }
+    </script>
+</head>
+<body>
+<hr>
+<div id="list">
+    <h1>To do list</h1>
+    输入事项 <br>
+    <input type="text" v-model="things" placeholder="请输入具体事项"><br>
+    输入备注 <br>
+    <input type="text" v-model="note" placeholder="请输入备注"><br>
+    <!--v-on后面要跟具体事件触发-->
+    <input type="button" value="添加" v-on:click="add()">
+    <br>
+    <table>
+        <tr>
+            <th>序号</th>
+            <th>事项</th>
+            <th>备注</th>
+        </tr>
+        <tr v-for="(todo,index) in todos">
+            <td>{{index+1}}</td>
+            <td>{{todo.vthings}}</td>
+            <td>{{todo.vnote}}</td>
+        </tr>
+    </table>
+    <hr>
+</div>
+</body>
+</html>
