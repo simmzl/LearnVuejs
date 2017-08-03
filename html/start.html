@@ -11,13 +11,22 @@
                 // 选择器
                 el: '#box',
                 data: {
+                    url:'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1502357404&di=d3383f6db35f964f80c81d98ce5c782e&imgtype=jpg&er=1&src=http%3A%2F%2Fimg3.duitang.com%2Fuploads%2Fitem%2F201410%2F17%2F20141017133211_uePjG.thumb.700_0.jpeg',
+                    w:'200px',
                     msg: 'Hello Vue.js!',
                     arr: ['1', '2', '3', '4'],
                     json: {
-                        a: 'apple',
-                        b: 'orange',
-                        c: 'banana'
+                        jg: 'green',
+                        jr: 'red',
+                        jbY: 'backYellow'
                     },
+                    demoStyle:{
+                      color:'white',
+                      backgroundColor:'green'
+                    },
+                    g: 'green',
+                    r: 'red',
+                    bY: 'backYellow',
                     vs: true
                 },
                 // 添加方法
@@ -34,11 +43,35 @@
                         } else {
                             this.vs = true;
                         }
+                    },
+                    demoEvent:function(ev,a){
+                        alert(ev.clientX);
+                        alert(a);
+                    },
+                    demoEvent1:function(ev){
+                        alert("demoEvent1");
+                        ev.cancelBubble=true;
+                    },
+                    demoEvent2:function(){
+                      alert("demoEvent2") ;
                     }
                 }
             });
         }
     </script>
+    <style>
+        .green{
+            color: #00b497;
+            font-size: 20px;
+        }
+        .red{
+            color:red;
+        }
+        .backYellow{
+            background-color: yellow;
+        }
+    </style>
+
 </head>
 <body>
 <div id="box">
@@ -90,7 +123,68 @@
         </div>
         <hr>
     </div>
+    <div><a href="../examples/toDoList.html">toDoList实例</a></div>
+    <hr>
+    <div>
 
+        <h2>事件冒泡</h2>
+        <h4>(v-on简写为@) <br>事件对象@click="demoEvent($evevt,666)";原生写法</h4>
+        <input type="button" value="按钮" @click="demoEvent($event,666)">
+        <hr>
+        <h4>clear 事件冒泡 <br>原生：cancelBubble=true</h4>
+        <div @click="demoEvent2()">
+            <input type="button" value="btn" @click="demoEvent1($event)">
+        </div>
+
+        <h4>Vue：@click.stop</h4>
+        <div @click="demoEvent1($event)">
+            <input type="button" value="btn" @click.stop="demoEvent2()">
+        </div>
+        <hr>
+
+        <h2>阻止默认事件.prevent</h2>
+        <h4>阻止右击显示菜单默认事件 <br>原生：ev.preventDefault()</h4>
+        <h4>Vue：@contextmenu.prevent</h4>
+        <div @click="demoEvent1($event)">
+            <input type="button" value="btn" @contextmenu.prevent="demoEvent2()">
+        </div>
+        <hr>
+
+        <h2>键盘事件@keydown/@keyup等</h2>
+        <h4>原生 : 获取keyCode为$event  ev.keyCode</h4>
+        <h4>vue中常用的键: <br><br>
+            @keyup.13(keyCode) <br>
+            @keyup.enter <br>
+            @keyup.left/right/up/down
+        </h4>
+        <hr>
+    </div>
+
+    <div>
+        <h2>v-bind 绑定属性，简写为冒号：</h2>
+        <h3>绑定宽高、src等</h3>
+        <img :src="url" alt="" :width="w">
+        <h3>绑定class、style</h3>
+        <h4>数组语法:class="[g, bY]"</h4>
+        <div :class="[g, bY]">我是谁？我在哪？？？</div>
+        <h4>json语法:class="{green:vs,backYellow:true}"<br>
+            其中green等为类名，vs为数据，其值可变</h4>
+        <div :class="{green:vs,backYellow:true}">黑人问号？？？</div>
+        <hr>
+        <h3>style和class差不多</h3>
+        <h4>对象语法 :style="demoStyle"</h4>
+        data:{<br>
+            demoStyle:{<br>
+                color:'white',<br>
+                backgroundColor:'green'<br>
+            }<br>
+        }<br>
+        <div :style="demoStyle">我是白字绿底的</div>
+
+        <h4>数组语法 :style="[demoStyle,(多个等等等)]"</h4>
+        <div :style="[demoStyle]">我也是白字绿底的</div>
+    </div>
 </div>
+<br><br><br>
 </body>
 </html>
