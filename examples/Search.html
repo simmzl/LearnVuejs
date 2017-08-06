@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../js/vue.js"></script>
+    <script src="../js/vue-resource.js"></script>
+    <script type="text/javascript">
+        window.onload = function () {
+            var app = new Vue({
+                el:'#box',
+                data:{
+                    myData:[],
+                    text1:"",
+                    now:-1
+                },
+                methods:{
+//                    获取文本数据，$http.get()
+                    getTxt: function () {
+                        app.$http.get('../record.txt').then(function(obj){
+                            alert(obj.data);
+                        },function (obj){
+                            alert(obj.status);
+                        });
+                    },
+//                    获取文本数据，$http.get()
+                    getPhp:function(){
+                        app.$http.get('../php/get.php',{
+                            a:'5',
+                            b:'20'
+                        }).then(function(obj){
+                            alert(obj.data);
+                        },function (obj){
+                            alert(obj.status);
+                        });
+                    },
+//                    获取文本数据，$http.post()
+                    postPhp:function(){
+                        app.$http.post('../php/post.php',{
+                            a:5,
+                            b:20
+                        },{
+//                    加入此标志才能把post数据发送上去
+                            emulateJSON:true
+                        }).then(function(obj){
+                            alert(obj.data);
+                        },function (obj){
+                            alert(obj.status)
+                        });
+                    },
+
+                    jsonpData: function (ev) {
+                        if(ev.keyCode==38 ||ev.keyCode==40){
+                            return;
+                        }
+                        if (ev.keyCode == 13){
+                            window.open("https://www.baidu.com/s?wd=" + app.text1);
+                            app.text1="";
+                        }
+
+                        app.$http.jsonp('https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su',{
+                            wd:app.text1
+                        },{
+                            jsonp:'cb'
+                        }).then(function(obj){
+                            app.myData = obj.data.s
+                        }),
+                        function (obj) {
+                        }
+                    },
+
+                    turnDown:function(){
+                        app.now++;
+                        if (app.now == app.myData.length){
+                            app.now = 0;
+                        }
+                        app.text1 = app.myData[app.now];
+                    },
+
+                    turnUp:function(){
+                        app.now--;
+                        if (app.now <= -1){
+                            app.now = app.myData.length-1;
+                        }
+                        app.text1 = app.myData[app.now];
+                    },
+
+                    search:function(){
+                        window.open("https://www.baidu.com/s?wd=" + app.text1);
+                        app.text1="";
+                    }
+
+                }
+            })
+        }
+    </script>
+
+    <style>
+        .active{
+            background-color: #646464;
+        }
+    </style>
+
+</head>
+<body>
+<div id="box">
+    <h1>GET:</h1>
+    <h2>获取一个server上简单的文本数据</h2>
+    <input type="button" value="获取文本数据" @click="getTxt()">
+    <h2>获取一个PHP数据5+20=?</h2>
+    <input type="button" value="获取PHP数据" @click="getPhp()">
+
+    <h1>POST </h1>
+    <h2>获取一个PHP数据,5-20=?</h2>
+    <input type="button" value="获取PHP数据" @click="postPhp()">
+
+    <h1>JSONP </h1>
+    <!--<h2>获取一个PHP数据,5-20=?</h2>-->
+    <input type="text" @keyup="jsonpData($event)" v-model="text1" @keydown.down.prevent="turnDown()" @keydown.up.prevent="turnUp()">
+    <input type="button" value="搜索" @click="search()">
+    <ul>
+        <li v-for="(value,index) in myData" :class="{active:index == now}">
+            {{value}}
+        </li>
+    </ul>
+</div>
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+</body>
+</html>

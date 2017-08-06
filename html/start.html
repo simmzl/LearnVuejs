@@ -11,8 +11,8 @@
                 // 选择器
                 el: '#box',
                 data: {
-                    url:'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1502357404&di=d3383f6db35f964f80c81d98ce5c782e&imgtype=jpg&er=1&src=http%3A%2F%2Fimg3.duitang.com%2Fuploads%2Fitem%2F201410%2F17%2F20141017133211_uePjG.thumb.700_0.jpeg',
-                    w:'200px',
+                    url: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1502357404&di=d3383f6db35f964f80c81d98ce5c782e&imgtype=jpg&er=1&src=http%3A%2F%2Fimg3.duitang.com%2Fuploads%2Fitem%2F201410%2F17%2F20141017133211_uePjG.thumb.700_0.jpeg',
+                    w: '200px',
                     msg: 'Hello Vue.js!',
                     arr: ['1', '2', '3', '4'],
                     json: {
@@ -20,9 +20,9 @@
                         jr: 'red',
                         jbY: 'backYellow'
                     },
-                    demoStyle:{
-                      color:'white',
-                      backgroundColor:'green'
+                    demoStyle: {
+                        color: 'white',
+                        backgroundColor: 'green'
                     },
                     g: 'green',
                     r: 'red',
@@ -44,30 +44,32 @@
                             this.vs = true;
                         }
                     },
-                    demoEvent:function(ev,a){
+                    demoEvent: function (ev, a) {
                         alert(ev.clientX);
                         alert(a);
                     },
-                    demoEvent1:function(ev){
+                    demoEvent1: function (ev) {
                         alert("demoEvent1");
-                        ev.cancelBubble=true;
+                        ev.cancelBubble = true;
                     },
-                    demoEvent2:function(){
-                      alert("demoEvent2") ;
+                    demoEvent2: function () {
+                        alert("demoEvent2");
                     }
                 }
             });
         }
     </script>
     <style>
-        .green{
+        .green {
             color: #00b497;
             font-size: 20px;
         }
-        .red{
-            color:red;
+
+        .red {
+            color: red;
         }
-        .backYellow{
+
+        .backYellow {
             background-color: yellow;
         }
     </style>
@@ -151,7 +153,7 @@
         <hr>
 
         <h2>键盘事件@keydown/@keyup等</h2>
-        <h4>原生 : 获取keyCode为$event  ev.keyCode</h4>
+        <h4>原生 : 获取keyCode为$event ev.keyCode</h4>
         <h4>vue中常用的键: <br><br>
             @keyup.13(keyCode) <br>
             @keyup.enter <br>
@@ -174,10 +176,10 @@
         <h3>style和class差不多</h3>
         <h4>对象语法 :style="demoStyle"</h4>
         data:{<br>
-            demoStyle:{<br>
-                color:'white',<br>
-                backgroundColor:'green'<br>
-            }<br>
+        demoStyle:{<br>
+        color:'white',<br>
+        backgroundColor:'green'<br>
+        }<br>
         }<br>
         <div :style="demoStyle">我是白字绿底的</div>
 
